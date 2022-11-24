@@ -1,0 +1,24 @@
+server:
+  # TLS configuration
+  ssl:
+  # The format used for the keystore. It could be set to JKS in case it is a JKS file
+    key-store-type: PKCS12
+  # The path to the keystore containing the certificate
+    key-store: classpath:csr/localhost.p12
+  # The password used to generate the certificate
+    key-store-password: password
+  # Enable ssl
+    enabled: true
+  port: 8443
+
+#actuator
+management:
+  #  security:
+  #    enabled: false
+  #  info:
+  #    env:
+  #      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: * # health,info,env,beans
