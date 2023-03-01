@@ -4,6 +4,7 @@ import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
+import org.springframework.context.annotation.Profile;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
@@ -14,6 +15,7 @@ import com.javachinna.model.UserEntity;
 import com.javachinna.repo.RoleRepository;
 import com.javachinna.repo.UserRepository;
 
+@Profile("!noauth & !defaultauth1 or customauth")
 @Component
 public class SetupDataLoader implements ApplicationListener<ContextRefreshedEvent> {
 
@@ -56,6 +58,7 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
 		return role;
 	}
 
+//	TODO (SSM-100) Spring Security Mgmt - this was not recognized with hardcoded pwd. Once used encode, it started recognizing and working the test
 	@Transactional
 	private final UserEntity createUserIfNotFound(final String name, final Role role) {
 		UserEntity user = userRepository.findByUsername(name);
